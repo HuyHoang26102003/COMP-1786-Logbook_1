@@ -35,20 +35,20 @@ class MainActivity : ComponentActivity() {
 
 @Composable
 fun LengthConverterScreen() {
-    // List of units including the new ones: Centimetre and Kilometre
+
     val units = listOf("Metre", "Centimetre", "Millimetre", "Kilometre", "Mile", "Foot")
 
     // Conversion factors to metres for each unit
     val toMetreFactors = mapOf(
         "Metre" to 1.0,
-        "Centimetre" to 0.01,    // 1 cm = 0.01 m
-        "Millimetre" to 0.001,   // 1 mm = 0.001 m
-        "Kilometre" to 1000.0,   // 1 km = 1000 m
-        "Mile" to 1609.34,       // 1 mile ≈ 1609.34 m
-        "Foot" to 0.3048         // 1 foot = 0.3048 m
+        "Centimetre" to 0.01,    
+        "Millimetre" to 0.001,   
+        "Kilometre" to 1000.0,   
+        "Mile" to 1609.34,       
+        "Foot" to 0.3048         
     )
 
-    // State variables with new names
+
     var lengthInput by remember { mutableStateOf("") }
     var sourceUnit by remember { mutableStateOf("Metre") }
     var targetUnit by remember { mutableStateOf("Metre") }
@@ -70,7 +70,7 @@ fun LengthConverterScreen() {
             modifier = Modifier.padding(bottom = 16.dp)
         )
 
-        // Input field for the length value
+  
         OutlinedTextField(
             value = lengthInput,
             onValueChange = { lengthInput = it },
@@ -82,7 +82,7 @@ fun LengthConverterScreen() {
             isError = inputError != null
         )
 
-        // Error message display
+        
         inputError?.let {
             Text(
                 text = it,
@@ -91,7 +91,7 @@ fun LengthConverterScreen() {
             )
         }
 
-        // Source unit selection
+       
         Text(
             text = "Convert from:",
             fontSize = 16.sp,
@@ -124,7 +124,7 @@ fun LengthConverterScreen() {
             }
         }
 
-        // Target unit selection
+     
         Text(
             text = "Convert to:",
             fontSize = 16.sp,
@@ -157,7 +157,7 @@ fun LengthConverterScreen() {
             }
         }
 
-        // Swap button to exchange source and target units, now moved above the Calculate button
+       
         Button(
             onClick = {
                 val temp = sourceUnit
@@ -174,7 +174,7 @@ fun LengthConverterScreen() {
             Text("Swap Units", color = MaterialTheme.colorScheme.onPrimary)
         }
 
-        // Convert button
+      
         Button(
             onClick = {
                 if (lengthInput.isEmpty()) {
@@ -203,7 +203,7 @@ fun LengthConverterScreen() {
             Text("Calculate", color = MaterialTheme.colorScheme.onPrimary)
         }
 
-        // Conversion result display
+        
         Text(
             text = conversionResult,
             fontSize = 18.sp,
@@ -214,8 +214,8 @@ fun LengthConverterScreen() {
 
 // Conversion function using a map of factors
 private fun convertLength(value: Double, from: String, to: String, factors: Map<String, Double>): Double {
-    val fromFactor = factors[from] ?: 1.0  // Default to 1 if unit not found
-    val toFactor = factors[to] ?: 1.0      // Default to 1 if unit not found
-    val valueInMetre = value * fromFactor  // Convert to metres
-    return valueInMetre / toFactor         // Convert from metres to target unit
+    val fromFactor = factors[from] ?: 1.0  
+    val toFactor = factors[to] ?: 1.0     
+    val valueInMetre = value * fromFactor  
+    return valueInMetre / toFactor        
 }
